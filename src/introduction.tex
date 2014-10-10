@@ -1,0 +1,23 @@
+\section{Introduction}
+
+A community quickly adopts a web application if it complies with user requirements.
+To do so, the monolithic programming approach facilitates quick enhancements in features.
+Java is a very popular choice using this approach.
+To cope with the community growth, the resources shall grow proportionally.
+The threading approach to scale an application on growing resources is error-prone.
+Eventually this growth requires to replace the initial approach for models providing incremental scalability.
+These models generally distribute application parts on a cluster of commodity machines\cite{Fox1997}.
+However these models are specific and require the development team to be trained and to start over the initial code base.
+These modifications imply to spend development resources in background without adding visible value for the users.
+
+\textit{Node.js} provides a more efficient approach for network applications than the threading approach.
+Its monolithic approach facilitates quick enhancements in features, but lacks incremental scalability.
+It is based on an event-loop consuming messages, similarly the models described above.
+Because of this similarity, we think it is possible to identify autonomous parts communicating through data streams.
+
+To lift the risks described above, we maintain the \textit{Node.js} monolithic approach and propose a tool to compile it into a high-level language compatible with a more scalable model.
+It extracts autonomous parts by searching for rupture points marking them out.
+% This tool may enable incremental scalability without unsafe technological shifts.
+
+We present rupture points in section \ref{section:rupture}, the high-level language in section \ref{section:language}, and a compilation example in \ref{section:example}.
+Finally, we cite related works in section \ref{section:related} and conclude this presentation.

@@ -1,0 +1,35 @@
+flx replyA-1005
+→ ø
+  function replyA(req, res) {
+    this._rep += 1;
+    res.send('' + this._rep);
+  }
+
+flx replyB-1006
+→ ø
+  function replyB(req, res) {
+    this._rep += 2;
+    res.send('' + this._rep);
+  }
+
+flx count5.js
+→ ø
+  var app = require('express')();
+  var _rep = 42;
+  app.get('/A', function placeholder() {
+    return flx.start(flx.m('replyA-1005', {
+      _args: arguments,
+      _sign: {}
+    }));
+  });
+  app.get('/B', function placeholder() {
+    return flx.start(flx.m('replyB-1006', {
+      _args: arguments,
+      _sign: {}
+    }));
+  });
+  if (!module.parent) {
+    app.listen(8080);
+    console.log('>> listening 8080');
+  }
+  exports.app = app;

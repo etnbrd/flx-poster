@@ -1,0 +1,48 @@
+digraph G {
+  rankdir=LR;
+  pad=1;
+
+
+
+  graph [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20 ];
+  node [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20, penwidth=0.5 shape=circle, fixedsize=true, width=1.2, height=1.2 ];
+  edge [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20, penwidth=0.5 splines=line, arrowsize=0.7 ];
+
+  { rank = source;
+    node [shape=plaintext,label="", width=0];
+    input;
+    output;
+  }
+
+  subgraph clusterWeb {
+    label = "Web";
+    web_in [shape=plaintext,label="", width=0];
+    web_out [shape=plaintext,label="", width=0];
+
+  }
+
+  subgraph clusterApp {
+    label = "Application fluxionnelle"
+    app_reg [shape=plaintext,label="", width=0];
+
+    1 -> 2 -> 3;
+
+
+  }
+
+  subgraph clusterMs {
+    label = "Messagerie fluxionnelle";
+    ms_app [shape=plaintext,label="", width=0];
+    ms_reg [shape=plaintext,label="", width=0];
+  }
+
+  web_in -> ms_app [label = "start"];
+
+
+  ms_app -> 1 [label = "call"];
+
+  3 -> web_out;
+
+  input -> web_in [label = "GET"];
+  web_out -> output [label = "SEND"];
+}

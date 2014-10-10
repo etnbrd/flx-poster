@@ -1,0 +1,70 @@
+digraph G {
+  rankdir=LR;
+  pad=1;
+
+  graph [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20 ];
+  node [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20, penwidth=0.5 shape=circle, fixedsize=true, width=1.2, height=1.2 ];
+  edge [ fontname="HelveticaNeue-Thin", fontcolor=black, fontsize=20, penwidth=0.5 splines=line, arrowsize=0.7 ];
+  
+ 
+  subgraph cluster {
+    node[shape=plaintext]
+    label = "Legend";
+    key [fixedsize=false, label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+      <tr><td align="right" port="i1">send message</td></tr>
+      <tr><td align="right" port="i2">create</td></tr>
+      <tr><td align="right" port="i3">store state</td></tr>
+      </table>>]
+    key2 [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+      <tr><td port="i1">&nbsp;</td></tr>
+      <tr><td port="i2">&nbsp;</td></tr>
+      <tr><td port="i3">&nbsp;</td></tr>
+      </table>>]
+    key:i1:e -> key2:i1:w
+    key:i2:e -> key2:i2:w [style=dotted]
+    key:i3:e -> key2:i3:w [style=dashed]
+  } 
+
+  { rank = source;
+    node [shape=plaintext,label="", width=0];
+    input;
+    output;
+  }
+
+  { rank = same;
+    node [shape=box];
+    app[label="app.get"];
+    send;
+  }
+
+  {
+    node [shape=box, fixedsize=true, width=0.5, height=0.5 ];
+    mbox [label=""];
+  }
+
+  { 
+    edge [weight=1000000]
+    router -> mbox [label="⑤ send_id\n(id, uuid)", dir=none];
+    mbox -> add [label=""];
+  }
+
+  {
+    input -> app [label="request"];
+    app -> router [label="② router\n(id, uuid)"];
+    add -> send [label="⑦ send_uuid\n(id, count)"];
+    send -> output [label="response"];
+  }
+  
+
+  {
+    edge [style=dotted]
+    app -> send [label="① send_uuid"];
+    router -> add [label="③ add_id"];
+  }
+
+  {
+    edge [style=dashed]
+    router -> mbox [label="④ count=0"];
+    add -> mbox [label="⑥ count=count+1"];
+  }
+}
