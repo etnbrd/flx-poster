@@ -21,25 +21,7 @@ If an application part reads a variable from another part, it sends the variable
 If an application part modifies a variable from another part, it persists the variable.
 If several application parts modify the same variable, the compiler merges these parts.
 
-% \textbf{Start rupture points} are on the border between the application and the outside, continuously receiving incoming user requests, such as \texttt{app.get} in listing \ref{lst:source} line 5.
-% \textbf{Post rupture points} represent a continuity in the data stream after an asynchronous operation, such as \texttt{fs.readFile} in listing \ref{lst:source} line 6.
-
 \section{High-level language} \label{section:language}
-% \begin{verbatim}
-%   <program>  ::= <flx> | <flx> <EOL> <program>
-%   <flx>      ::= 'flx' <id> <context> <EOL>
-%                  <stream>+<EOL>
-%                    <fn>
-%   <stream>   ::= <op> <dest> [<msg-body>]
-%                | 'null'
-%   <dest>     ::= <list>
-%   <msg-body> ::= '['<list>']'
-%   <context>  ::= '{'<list>'}'
-%   <list>     ::= <id> (', '<id>)*
-%   <op>       ::= '>>' | '->'
-%   <id>       ::= javascript identifier
-%   <fn>       ::= javascript syntax, indented + stream
-% \end{verbatim}
 
 \vspace{-1\baselineskip}
 \begin{bnf*}
@@ -58,32 +40,9 @@ If several application parts modify the same variable, the compiler merges these
 \vspace{-1.5\baselineskip}~\\
 The compiler encapsulates an application part in a \textit{fluxion} $\bnfpn{flx}$.
 It is an autonomous entity of execution with a unique name $\bnfpn{id}$ and a persisted memory, called \textit{context} $\bnfpn{ctx}$.
-% A \textit{fluxion} sends messages to other \textit{fluxions} on its output stream $\bnfpn{stream}$.
 At a message reception, it executes its function $\bnfpn{fn}$.
 This function uses the Javascript syntax augmented with $\bnfpn{stream}$ to indicate an output stream to other fluxions $\bnfpn{dest}$.
 The function $\bnfpn{fn}$ is indented to be demarcated from the rest.
-% Our language represents a rupture point as a stream between two application parts encapsulated in \textit{fluxions}.
-
-% A stream is defined with its type : \textit{start} or \textit{post}, a list of the names of recipients \textit{fluxions} separated by commas, and optionally a description of its message body. 
-% A \textit{start} stream uses the operator \texttt{>}\texttt{>}, and a \textit{post} stream uses the operator \texttt{->}.
-% The description of the message body is a comma separated list of variables identifiers enclosed in square brackets.
-% A stream is defined with this syntax : \vspace{-1.5\baselineskip}
-% \begin{verbatim}
-% <operator> <recipients list> [<body description>]
-% \end{verbatim} \vspace{-1.5\baselineskip}
-% For the last downstream part, the output stream is a special stream called \texttt{null}.
-
-% A \textit{fluxion} is defined with a header followed by a body with an indentation of two spaces.
-% The header starts with the keyword \texttt{flx}, followed by its name and a description of its \textit{context}.
-% After this first line, there is a list of its output streams as defined above, and finally the body of the \textit{fluxion} containing the callback function.
-% The callback function is defined with the Javascript syntax, augmented with the stream syntax to send messages to downstream \textit{fluxions}.
-% The \textit{root} \textit{fluxion} is an exception, as it doesn't have input streams its body isn't a callback function but initialization code.
-% A \textit{fluxion} is defined with this syntax : \vspace{-1.5\baselineskip}
-% \begin{verbatim}
-% flx <name> {<context>}
-% <output streams>
-%   <processing function>
-% \end{verbatim}
 
 \section{Compilation example} \label{section:example}
 
