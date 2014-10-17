@@ -50,8 +50,8 @@ To illustrate the compiler features, we compiled the example from listing \ref{l
 Source and result are available on github\cite{flx-example}.
 The two asynchronous functions from the source are detected, which result in three \textit{fluxions}.
 Callbacks are replaced by output \textit{streams}.
-The variable \texttt{res} is read by \textit{fluxion} \texttt{reply-1001}, and is forwarded along the message stream.
-The variable \texttt{count} is modified only by \textit{fluxion} \texttt{reply-1001}, and is persisted in its \textit{context}.
+The variable \texttt{res} is read by \textit{fluxion} \texttt{reply\_1001}, and is forwarded along the message stream.
+The variable \texttt{count} is modified only by \textit{fluxion} \texttt{reply\_1001}, and is persisted in its \textit{context}.
 
 \includecode{flx,
   caption={Compilation result for listing \ref{lst:source}},

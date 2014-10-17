@@ -1,17 +1,17 @@
-flx source.js {}
->> handler-1000 [res]
+flx source_js {}
+>> handler_1000 [res]
   var app = require('express')(), fs = require('fs'), count = 0;
-  app.get('/', >> handler-1000);
+  app.get('/', >> handler_1000);
   app.listen(8080);
-  console.log('>> listening 8080');
+  console.log('+> listening 8080');
 
-flx handler-1000 {fs}
--> reply-1001 [res]
+flx handler_1000 {fs}
+-> reply_1001 [res]
   function handler(req, res) {
-    fs.readFile(__filename, -> reply-1001);
+    fs.readFile(__filename, -> reply_1001);
   }
 
-flx reply-1001 {count}
+flx reply_1001 {count}
 -> null
   function reply(err, data) {
     count += 1;
