@@ -1,27 +1,16 @@
 \documentclass{utils/acm_proc_article-sp}
-% \documentclass{utils/acm_proc_article-sp}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage[english, french]{babel}
-\usepackage[babel=true]{csquotes}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{backnaur}
-\usepackage[nounderscore]{syntax}
-\setlength{\grammarindent }{2cm}
 
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepgfplotslibrary{external} 
-\tikzexternalize
-\tikzsetexternalprefix{figures/}
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-            \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
-
+\input{utils/code}
 
 \usepackage[hyperref=true,%
             url=false,%
@@ -32,109 +21,40 @@
             backend=biber,%
             block=none]{biblatex}
 
-\bibliography{../src/bib/OS.bib}
-\bibliography{../src/bib/Flow-Based Programming.bib}
-\bibliography{../src/bib/Functional Programming-Functional Reactive Programming.bib}
-\bibliography{../src/bib/Stream.bib}
-\bibliography{../src/bib/Dataflow.bib}
-\bibliography{../src/bib/Web & Social Networks.bib}
-\bibliography{../src/bib/Others.bib}
-\bibliography{../src/bib/Actor Model.bib}
-\bibliography{../src/bib/Misc.bib}
-\bibliography{../src/bib/Parallelisation.bib}
-\bibliography{../src/bib/Others.bib}
-\bibliography{../src/bib/Distributed Systems.bib}
-\bibliography{../src/bib/Compilation.bib}
-% \bibliography{../src/bib/sigproc.bib}
+\bibliography{../src/biblio.bib}
 
-% \bibliographystyle{abbrv}
-% \bibliography{../src/bib/OS.bib,../src/bib/Flow-Based Programming.bib,../src/bib/Functional Programming-Functional Reactive Programming.bib,../src/bib/Stream.bib,../src/bib/Dataflow.bib,../src/bib/Web & Social Networks.bib,../src/bib/Others.bib,../src/bib/Actor model.bib,../src/bib/Misc.bib,../src/bib/Parallelisation.bib,../src/bib/Others.bib,../src/bib/Distributed Systems.bib}
-
-\input{utils/_todos}
-\input{utils/code}
-
-
-% Document starts
 \begin{document}
 
-% Title portion
+
 \title{
 	A compiler providing incremental scalability for web applications
-  % Definition of a fluxionnal execution model
-	% \titlenote{
-	% 	(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.
-	% }
-}
-\subtitle{
-  % Poster Paper
-	% [Extended Abstract]
-	% \titlenote{
-	% 	A full version of this paper is available as
-	% 	\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-	% 	\LaTeX$2_\epsilon$\ and BibTeX} at
-	% 	\texttt{www.acm.org/eaddress.htm}
-	% }
 }
 
 \numberofauthors{2}
 \author{
-% 1st. author
 \alignauthor
 Etienne Brodu, Stéphane Frénot\\
-  \email{\textsf{\normalsize{\textit{firstname}.\textit{name}@insa-lyon.fr}}}\\
+  \email{\textsf{\normalsize{\textit{firstname}.\textit{lastname}@insa-lyon.fr}}}\\
   \affaddr{\textsf{\small{IXXI – ENS Lyon}}}\\
   \affaddr{\textsf{\small{15 parvis René Descartes – BP 7000}}}\\
   \affaddr{\textsf{\small{69342 Lyon Cedex 07  FRANCE}}}
-% 2nd. author
-% \alignauthor
-% Stéphane Frénot\\
-%   \email{\textsf{\normalsize{stephane.frenot@insa-lyon.fr}}}\\
-%   \affaddr{\textsf{\small{IXXI – ENS Lyon}}}\\
-%   \affaddr{\textsf{\small{15 parvis René Descartes – BP 7000}}}\\
-%   \affaddr{\textsf{\small{69342 Lyon Cedex 07  FRANCE}}}
-% \and  % use '\and' if you need 'another row' of author names
-% 3rd. author
 \alignauthor
 Fabien Cellier, Frédéric Oblé\\
-  \email{\textsf{\normalsize{\textit{firstname}.\textit{name}@worldline.com}}}\\
+  \email{\textsf{\normalsize{\textit{firstname}.\textit{lastname}@worldline.com}}}\\
   \affaddr{\textsf{\small{Worldline}}}\\
   \affaddr{\textsf{\small{Bât. Le Mirage}}}\\
   \affaddr{\textsf{\small{53 avenue Paul Krüger}}}\\
   \affaddr{\textsf{\small{CS 60195}}}\\
   \affaddr{\textsf{\small{69624 Villeurbanne Cedex}}}
-% 4th. author
-% \alignauthor
-% Frédéric Oblé\\
-%   \email{\textsf{\normalsize{frederic.oble@worldline.com}}}\\
-%   \affaddr{\textsf{\small{Worldline}}}\\
-%   \affaddr{\textsf{\small{Bât. Le Mirage}}}\\
-%   \affaddr{\textsf{\small{53 avenue Paul Krüger}}}\\
-%   \affaddr{\textsf{\small{CS 60195}}}\\
-%   \affaddr{\textsf{\small{69624 Villeurbanne Cedex}}}\\
-% % 5th. author
-% \alignauthor
-% Gautier di Folco\\
-%   \email{\textsf{\normalsize{gautier.difolco@insa-lyon.fr}}}\\
-%   \affaddr{\textsf{\small{IXXI – ENS Lyon}}}\\
-%   \affaddr{\textsf{\small{15 parvis René Descartes – BP 7000}}}\\
-%   \affaddr{\textsf{\small{69342 Lyon Cedex 07  FRANCE}}}
 }
 
 \maketitle
 
 \input{abstract}
 
-
-% A category with the (minimum) three required fields
-% \category{H.4}{Information Systems Applications}{Miscellaneous}
-%A category including the fourth, optional field follows...
-% \category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
-
-\category{Software and its engineering}{Software notations and tools}{Compilers}[Runtime environments]
-
+\category{D.3.4}{Software Engineering}{Processors}[Code generation, Compilers, Run-time environments]
 \terms{Compilation}
-
-\keywords{Flow programming, Web, Javascript} % NOT required for Proceedings
+\keywords{Flow programming, Web, Javascript}
 
 \input{introduction}
 \input{compiler}

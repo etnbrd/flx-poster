@@ -1,0 +1,20 @@
+flx source_js {}
+>> handler_1000 [res]
+  var app = require('express')(), fs = require('fs'), count = 0;
+  app.get('/', >> handler_1000);
+  app.listen(8080);
+  console.log('+> listening 8080');
+
+flx handler_1000 {fs}
+-> reply_1001 [res]
+  function handler(req, res) {
+    fs.readFile(__filename, -> reply_1001);
+  }
+
+flx reply_1001 {count}
+-> null
+  function reply(err, data) {
+    count += 1;
+    var code = ('' + data).replace(/\n/g, '<br>').replace(/ /g, '&nbsp');
+    res.send(err || 'downloaded ' + count + ' times<br><br><code>' + code + '</code>');
+  }

@@ -3,14 +3,12 @@ var app = require('express')(),
     count = 0;
 
 app.get('/', function handler(req, res){
-  
-  fs.readFile(__filename, function reply(error, data) {
+  fs.readFile(__filename, function reply(err, data) {
     count += 1;
-    res.send('this file was downloaded ' + count + ' times\n\n' + data);
+    var code = ('' + data).replace(/\n/g, '<br>').replace(/ /g, '&nbsp');
+    res.send(err || 'downloaded ' + count + ' times<br><br><code>' + code + '</code>');
   });
 });
 
-if (!module.parent) {
-    app.listen(8080);
-    console.log('>> listening 8080');
-}
+app.listen(8080);
+console.log('>> listening 8080');
